@@ -1,0 +1,66 @@
+{
+  "name": "gopeed-extension-pawchive",
+  "author": "sanfangx",
+  "title": "Pawchive 帖子下载器",
+  "description": "自动解析 Pawchive 帖子（Fanbox/Patreon/Fantia/Ci-en等），将帖子内的图片、视频与附件下载并打包为 ZIP 压缩包或多文件批量下载",
+  "version": "1.0.0",
+  "homepage": "https://pawchive.pw",
+  "repository": {
+    "url": "https://github.com/sanfangx/gopeed-extension-pawchive",
+    "directory": ""
+  },
+  "scripts": [
+    {
+      "event": "onResolve",
+      "match": {
+        "urls": [
+          "*://pawchive.pw/*/user/*/post/*",
+          "*://*.pawchive.pw/*/user/*/post/*",
+          "*://pawchive.st/*/user/*/post/*",
+          "*://*.pawchive.st/*/user/*/post/*"
+        ]
+      },
+      "entry": "index.js"
+    }
+  ],
+  "settings": [
+    {
+      "name": "packageMode",
+      "title": "下载模式",
+      "description": "选择是将帖子所有图片视频打包成单个 ZIP 压缩包，还是按文件独立多线程并发下载",
+      "type": "string",
+      "value": "zip",
+      "options": [
+        {
+          "label": "打包为单个 ZIP 压缩包",
+          "value": "zip"
+        },
+        {
+          "label": "按文件夹批量独立下载（Gopeed并发加速）",
+          "value": "multi"
+        }
+      ]
+    },
+    {
+      "name": "includeInfo",
+      "title": "包含帖子说明文档 (info.txt)",
+      "description": "是否一并保存帖子的正文描述、发布时间、来源作者与原网址信息",
+      "type": "boolean",
+      "value": true
+    },
+    {
+      "name": "includeCover",
+      "title": "下载封面原图 (Cover)",
+      "description": "是否下载主文件（通常为作品封面或第一张原图）",
+      "type": "boolean",
+      "value": true
+    },
+    {
+      "name": "fileDomain",
+      "title": "文件服务器域名",
+      "description": "用于拉取图片与附件的 CDN 域名（默认 file.pawchive.pw）",
+      "type": "string",
+      "value": "file.pawchive.pw"
+    }
+  ]
+}
