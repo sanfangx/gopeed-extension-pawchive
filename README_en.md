@@ -2,13 +2,12 @@
 
 # Gopeed Extension: Pawchive Downloader
 
-**A Gopeed extension to parse, download, and automatically package Pawchive creator posts into ZIP archives.**
+**A Gopeed in-app extension to parse and download Pawchive posts into ZIP archives.**
 
 [English](README_en.md) | [简体中文](README.md)
 
 [![Gopeed Version](https://img.shields.io/badge/Gopeed-%3E%3D1.6.0-79C476?logo=gopeed)](https://gopeed.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/sanfangx/gopeed-extension-pawchive?style=flat&color=yellow)](https://github.com/sanfangx/gopeed-extension-pawchive)
 
 </div>
 
@@ -16,17 +15,18 @@
 
 ## 📖 Introduction
 
-This extension is an in-app component designed for [Gopeed](https://gopeed.com/). Simply provide any post link from [Pawchive](https://pawchive.pw/), and it will extract all artwork, videos, attachments, and description text, packaging them directly into a single `.zip` file or enabling concurrent multi-thread download.
+An in-app extension for [Gopeed](https://gopeed.com/) designed for [Pawchive](https://pawchive.pw/).
+
+Paste any Pawchive post URL, and it automatically extracts all images, videos, and attachments, **packaging them directly into a single ZIP archive** for download, with an option for concurrent multi-file downloads.
 
 ---
 
 ## ✨ Features
 
-- 📦 **Automated ZIP Packaging**: Built-in zero-dependency PKZIP 2.0 engine with full UTF-8 encoding support to prevent messy filenames.
-- ⚡ **Native Concurrency**: Switch to multi-file mode anytime to leverage Gopeed's multi-connection acceleration and resume capability.
-- 🌐 **Wide Platform Support**: Covers Pixiv Fanbox, Patreon, Fantia, Ci-en, Subscribestar, Boosty, Gumroad, Afdian on Pawchive.
-- 📝 **Metadata Archival**: Automatically extracts post title, author, publish date, and content into an `info.txt` file.
-- 🛡️ **Inline Media Sniffing**: Inspects content HTML to extract embedded images and streams.
+- 📦 **Automated ZIP Packaging (Default)**: Automatically packs all post media and attachments into a clean `.zip` file.
+- ⚡ **Multi-File Concurrency**: Easily switch to multi-file mode in settings to utilize Gopeed's multi-threaded acceleration.
+- 📝 **Text Archival**: Extracts title, publish date, and post description into `info.txt`.
+- 🌐 **Domain Support**: Works with both `pawchive.pw` and `pawchive.st`.
 
 ---
 
@@ -34,25 +34,24 @@ This extension is an in-app component designed for [Gopeed](https://gopeed.com/)
 
 ### Method 1: URL Installation (Recommended)
 
-1. Open **Gopeed**, go to the **Extensions** tab.
-2. Click the **+** (Install) button in the top right corner.
-3. Enter the repository URL:
+1. Open Gopeed and go to the **Extensions** tab.
+2. Click the **+** (Install) button in the top right.
+3. Paste this repository URL:
    ```text
    github.com/sanfangx/gopeed-extension-pawchive
    ```
-4. Click confirm to install instantly.
 
-### Method 2: Local Developer Mode
+### Method 2: Load Local Directory
 
-1. Clone or download this repository locally.
-2. In Gopeed's Extensions page, **click the "+" (Install) button 5 times consecutively** to unlock Developer Mode.
-3. Click the newly appeared **"Load Local Directory"** button and select this folder.
+1. Download or clone this repository locally.
+2. In Gopeed's Extensions page, **click the "+" (Install) button 5 times consecutively** to enable Developer Mode.
+3. Click **"Load Local Directory"** and select this directory.
 
 ---
 
 ## 🚀 Usage
 
-Paste any Pawchive post URL in Gopeed's "Create Task" dialog:
+Create a new download task in Gopeed and paste any Pawchive post link:
 
 ```text
 https://pawchive.pw/fanbox/user/23898386/post/12547592
@@ -60,19 +59,18 @@ https://pawchive.pw/fanbox/user/23898386/post/12547592
 
 ---
 
-## ⚙️ Configuration
+## ⚙️ Settings
 
-Click the gear icon next to this extension in Gopeed to configure:
+Click the gear icon next to this extension in Gopeed:
 
-| Option | Type | Default | Description |
+| Setting | Type | Default | Description |
 | :--- | :---: | :---: | :--- |
-| **Download Mode** (`packageMode`) | `Select` | `zip` | `zip`: Pack all files into a single `.zip` archive.<br>`multi`: Download files concurrently into a dedicated directory. |
-| **Include Info File** (`includeInfo`) | `Boolean` | `true` | Save post content and metadata into `info.txt`. |
-| **Include Cover** (`includeCover`) | `Boolean` | `true` | Download main cover image (`000_cover.jpeg`). |
-| **File Domain** (`fileDomain`) | `String` | `file.pawchive.pw` | CDN domain for media files. |
+| **Download Mode** | `zip` / `multi` | `zip` | **`zip`**: Pack into single `.zip` file.<br>**`multi`**: Download files concurrently. |
+| **Include Info File** | Boolean | `true` | Save description text into `info.txt`. |
+| **Include Cover** | Boolean | `true` | Download main cover image. |
 
 ---
 
 ## 📄 License
 
-Licensed under the [MIT License](LICENSE).
+[MIT License](LICENSE)
