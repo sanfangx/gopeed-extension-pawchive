@@ -2,11 +2,11 @@
 
 # Gopeed Extension: Pawchive Downloader
 
-**A Gopeed in-app extension to parse and download Pawchive posts into ZIP archives.**
+**A Gopeed in-app extension to fast download all media and attachments from Pawchive posts.**
 
 [English](README_en.md) | [简体中文](README.md)
 
-[![Gopeed Version](https://img.shields.io/badge/Gopeed-%3E%3D1.6.0-79C476?logo=gopeed)](https://gopeed.com)
+[![Gopeed Version](https://img.shields.io/badge/Gopeed-%3E%3D1.5.0-79C476?logo=gopeed)](https://gopeed.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 </div>
@@ -15,18 +15,19 @@
 
 ## 📖 Introduction
 
-An in-app extension for [Gopeed](https://gopeed.com/) designed for [Pawchive](https://pawchive.pw/).
+An in-app extension for the [Gopeed](https://gopeed.com/) download manager, customized for [Pawchive](https://pawchive.pw/) (and its mirror `pawchive.st`).
 
-Paste any Pawchive post URL, and it automatically extracts all images, videos, and attachments, **packaging them directly into a single ZIP archive** for download, with an option for concurrent multi-file downloads.
+Simply paste any Pawchive post URL, and it automatically resolves all original covers, images, videos, and attachments. All files are downloaded concurrently using Gopeed's native multi-connection engine directly into an organized post folder.
 
 ---
 
 ## ✨ Features
 
-- 📦 **Automated ZIP Packaging (Default)**: Automatically packs all post media and attachments into a clean `.zip` file.
-- ⚡ **Multi-File Concurrency**: Easily switch to multi-file mode in settings to utilize Gopeed's multi-threaded acceleration.
-- 📝 **Text Archival**: Extracts title, publish date, and post description into `info.txt`.
-- 🌐 **Domain Support**: Works with both `pawchive.pw` and `pawchive.st`.
+- ⚡ **Native Multi-Threaded Acceleration**: Harnesses Gopeed's core multi-connection concurrent download and chunked resume capabilities.
+- 📁 **Dedicated Post Folder**: Automatically creates folders formatted as `[Service] [AuthorUID] PostID - Title`.
+- 🔢 **Sequential File Prefixes**: Covers are prefixed with `000_`, while attachments and gallery images follow `001_`, `002_`, etc.
+- 🚫 **Clean & Bloat-Free**: No redundant `info.txt` files—only raw original images, videos, and attachments.
+- 🌐 **Mirror Support**: Supports both `pawchive.pw` and `pawchive.st`.
 
 ---
 
@@ -34,9 +35,9 @@ Paste any Pawchive post URL, and it automatically extracts all images, videos, a
 
 ### Method 1: URL Installation (Recommended)
 
-1. Open Gopeed and go to the **Extensions** tab.
-2. Click the **+** (Install) button in the top right.
-3. Paste this repository URL:
+1. Open Gopeed and navigate to the **Extensions** page.
+2. Click the **+** (Install) button in the upper right.
+3. Paste the repository URL and confirm:
    ```text
    github.com/sanfangx/gopeed-extension-pawchive
    ```
@@ -44,8 +45,8 @@ Paste any Pawchive post URL, and it automatically extracts all images, videos, a
 ### Method 2: Load Local Directory
 
 1. Download or clone this repository locally.
-2. In Gopeed's Extensions page, **click the "+" (Install) button 5 times consecutively** to enable Developer Mode.
-3. Click **"Load Local Directory"** and select this directory.
+2. In Gopeed's Extensions page, **click the "+" (Install) icon 5 times consecutively** to enable Developer Mode.
+3. Click the new **"Load Local Directory"** button and select this directory.
 
 ---
 
@@ -57,17 +58,18 @@ Create a new download task in Gopeed and paste any Pawchive post link:
 https://pawchive.pw/fanbox/user/23898386/post/12547592
 ```
 
+Gopeed will parse all post media and organize them into the destination folder.
+
 ---
 
 ## ⚙️ Settings
 
-Click the gear icon next to this extension in Gopeed:
+Click the gear icon next to the extension in Gopeed to configure:
 
 | Setting | Type | Default | Description |
 | :--- | :---: | :---: | :--- |
-| **Download Mode** | `zip` / `multi` | `zip` | **`zip`**: Pack into single `.zip` file.<br>**`multi`**: Download files concurrently. |
-| **Include Info File** | Boolean | `true` | Save description text into `info.txt`. |
-| **Include Cover** | Boolean | `true` | Download main cover image. |
+| **Download Cover Image** | Switch | Enabled | Whether to download the main cover/file (`000_...`). |
+| **File Domain** | Text | `file.pawchive.pw` | CDN domain used to fetch images and attachments. |
 
 ---
 
