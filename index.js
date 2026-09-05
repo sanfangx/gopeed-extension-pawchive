@@ -23,13 +23,7 @@ gopeed.events.onResolve(async function (ctx) {
   const fileDomain = (gopeed.settings && gopeed.settings.fileDomain) || "file.pawchive.pw";
   const includeCover = (gopeed.settings && gopeed.settings.includeCover !== undefined) ? Boolean(gopeed.settings.includeCover) : true;
 
-  const resp = await fetch(apiUrl, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      "Accept": "application/json",
-      "Referer": rawUrl
-    }
-  });
+  const resp = await fetch(apiUrl);
 
   if (!resp.ok) {
     throw new MessageError(`请求 Pawchive API 失败 (HTTP ${resp.status}): ${apiUrl}`);
@@ -104,13 +98,7 @@ gopeed.events.onResolve(async function (ctx) {
     files: fileList.map((item) => ({
       name: item.name,
       req: {
-        url: item.url,
-        extra: {
-          header: {
-            "Referer": "https://pawchive.pw/",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-          }
-        }
+        url: item.url
       }
     }))
   };
