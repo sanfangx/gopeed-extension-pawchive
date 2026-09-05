@@ -3,9 +3,12 @@
 
 function sanitizeFilename(name) {
   return (name || "untitled")
-    .replace(/[\/:*?"<>|\r\n\t]/g, "_")
+    .replace(/[\\/:*?"<>|\r\n\t]/g, "_")
+    .replace(/[^\w\s\u4e00-\u9fa5\u3040-\u30ff\u31f0-\u31ff\uac00-\ud7af._-]/g, "_")
+    .replace(/_+/g, "_")
     .trim()
-    .slice(0, 120);
+    .replace(/[. ]+$/, "")
+    .slice(0, 100);
 }
 
 gopeed.events.onResolve(async function (ctx) {
@@ -34,9 +37,8 @@ gopeed.events.onResolve(async function (ctx) {
   const cleanTitle = sanitizeFilename(rawTitle);
   const taskBaseName = `[${service}] [${userId}] ${postId} - ${cleanTitle}`;
 
-  const buildFileUrl = (path, name) => {
-    const url = `https://${fileDomain}/data${path}`;
-    return name ? `${url}?f=${encodeURIComponent(name)}` : url;
+  const buildFileUrl = (path) => {
+    return `https://${fileDomain}/data${path}`;
   };
 
   const fileList = [];
@@ -48,7 +50,7 @@ gopeed.events.onResolve(async function (ctx) {
     const fname = sanitizeFilename(post.file.name || "cover.jpeg");
     fileList.push({
       name: `000_${fname}`,
-      url: buildFileUrl(post.file.path, post.file.name)
+      url: buildFileUrl(post.file.path)
     });
   }
 
@@ -62,7 +64,7 @@ gopeed.events.onResolve(async function (ctx) {
       const fname = sanitizeFilename(att.name || `attachment_${idx + 1}`);
       fileList.push({
         name: `${prefix}_${fname}`,
-        url: buildFileUrl(att.path, att.name)
+        url: buildFileUrl(att.path)
       });
     });
   }
@@ -80,7 +82,7 @@ gopeed.events.onResolve(async function (ctx) {
         const fname = `inline_${inlineIdx}.${inferredExt}`;
         fileList.push({
           name: `inline_${inlineIdx}_${fname}`,
-          url: buildFileUrl(fullPath, fname)
+          url: buildFileUrl(fullPath)
         });
         inlineIdx++;
       }
